@@ -3,15 +3,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-const ClientePost = () => {
+const TypeIntallationForm = () => {
     //Para Navegação
     const navigate = useNavigate();  
     // Definir o estado para os inputs do formulário
     const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [document, setDocument] = useState('');
-    const [type_document, setTypeDocument] = useState('');
     const [resposta, setResposta] = useState(null);
 
     // Função para lidar com a submissão do formulário
@@ -20,16 +16,12 @@ const ClientePost = () => {
       
       // Criar o objeto com os dados do formulário
       const dadosFormulario = {
-        name,
-        email,
-        phone,
-        document,
-        type_document
+        name
       };
 
       try {
         // Fazer uma requisição POST para a API
-        const response = await fetch('http://localhost:8000/api/client', {
+        const response = await fetch('http://localhost:8000/api/type_installation', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -56,13 +48,13 @@ const ClientePost = () => {
 
     const handleRedirect = () => {
       // Redireciona para a página "About"
-      navigate('/client_list');
+      navigate('/type_installation_list');
     };
 
   
   return (
     <main className="flex flex-col items-center justify-between p-24">
-     <h1>Formulário de Cliente</h1>
+     <h1>Formulário de Instalação</h1>
           <form onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name">Nome:</label>
@@ -74,50 +66,12 @@ const ClientePost = () => {
                 required
               />
             </div>
-            <div>
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="phone">Phone:</label>
-              <input
-                id="phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="document">Document:</label>
-              <input
-                id="document"
-                value={document}
-                onChange={(e) => setDocument(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="type_document">Type Document:</label>
-              <input
-                id="type_document"
-                value={type_document}
-                onChange={(e) => setTypeDocument(e.target.value)}
-                required
-              />
-            </div>
-
             <button type="submit">Enviar</button>
           </form>
            
           {resposta && <p>{resposta}</p>}
-          <button onClick={handleRedirect}>Listar Clientes</button>
+          <button onClick={handleRedirect}>Listar Instalações</button>
     </main>
   );
 }
-export default ClientePost;
+export default TypeIntallationForm;

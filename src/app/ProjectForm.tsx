@@ -3,15 +3,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-const ClientePost = () => {
+const ProjectForm = () => {
     //Para Navegação
     const navigate = useNavigate();  
     // Definir o estado para os inputs do formulário
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [document, setDocument] = useState('');
-    const [type_document, setTypeDocument] = useState('');
+    const [client_id, setClientId] = useState('');
+    const [type_installation_id, setTypeInstallationId] = useState('');
+    const [uf_id, setUfId] = useState('');
+    const [equipaments, setEquipaments] = useState('');
     const [resposta, setResposta] = useState(null);
 
     // Função para lidar com a submissão do formulário
@@ -20,16 +19,15 @@ const ClientePost = () => {
       
       // Criar o objeto com os dados do formulário
       const dadosFormulario = {
-        name,
-        email,
-        phone,
-        document,
-        type_document
+        client_id,
+        type_installation_id,
+        uf_id,
+        equipaments
       };
 
       try {
         // Fazer uma requisição POST para a API
-        const response = await fetch('http://localhost:8000/api/client', {
+        const response = await fetch('http://localhost:8000/api/project', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -55,14 +53,14 @@ const ClientePost = () => {
     };
 
     const handleRedirect = () => {
-      // Redireciona para a página "About"
-      navigate('/client_list');
+      // Redireciona para a página "Projetos"
+      navigate('/project_list');
     };
 
   
   return (
     <main className="flex flex-col items-center justify-between p-24">
-     <h1>Formulário de Cliente</h1>
+     <h1>Formulário de Projeto</h1>
           <form onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name">Nome:</label>
@@ -112,12 +110,12 @@ const ClientePost = () => {
               />
             </div>
 
-            <button type="submit">Enviar</button>
+            <button type="submit">Criar Projeto</button>
           </form>
            
           {resposta && <p>{resposta}</p>}
-          <button onClick={handleRedirect}>Listar Clientes</button>
+          <button onClick={handleRedirect}>Listar Projetos</button>
     </main>
   );
 }
-export default ClientePost;
+export default ProjectForm;
