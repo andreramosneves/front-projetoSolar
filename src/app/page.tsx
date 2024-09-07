@@ -16,6 +16,8 @@ import EquipamentList from './EquipamentList';
 import EquipamentForm from './EquipamentForm'; 
 
 import ProjectForm from './ProjectForm'; 
+import ProjectList from './ProjectList'; 
+import ProjectDetail from './ProjectDetail'; 
 
 const Redirect: React.FC = () => {
   // Redireciona para a página principal
@@ -34,6 +36,7 @@ const App: React.FC = () => {
             <li><Link to="/type_installation">Tipo Instalação</Link></li>
             <li><Link to="/equipament">Equipamento</Link></li>
             <li><Link to="/project">Projeto</Link></li>
+            <li><Link to="/project_detail/16">Projeto Detalhe 11</Link></li>
           </ul>
         </nav>
         <Routes>
@@ -47,6 +50,8 @@ const App: React.FC = () => {
           <Route path="/equipament" element={<EquipamentForm />} />
           <Route path="/equipament_list" element={<EquipamentList />} />
           <Route path="/project" element={<ProjectForm />} />
+          <Route path="/project_list" element={<ProjectList />} />
+          <Route path="/project_detail/:id" element={<ProjectDetail />} />
         </Routes>
       </Router>
     </main>
