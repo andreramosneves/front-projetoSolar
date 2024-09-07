@@ -33,7 +33,7 @@ const App: React.FC = () => {
             <li><Link to="/uf">UF</Link></li>
             <li><Link to="/type_installation">Tipo Instalação</Link></li>
             <li><Link to="/equipament">Equipamento</Link></li>
-            <li><Link to="/equipament">Projeto</Link></li>
+            <li><Link to="/project">Projeto</Link></li>
           </ul>
         </nav>
         <Routes>
