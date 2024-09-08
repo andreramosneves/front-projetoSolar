@@ -1,4 +1,5 @@
 'use client'; // Essa diretiva transforma o componente em um Client Component
+import { useEffect, useState } from 'react';
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link , Navigate} from 'react-router-dom';
@@ -24,7 +25,19 @@ const Redirect: React.FC = () => {
   return <Navigate to="/" />;
 };
 
-const App: React.FC = () => {
+
+const Home: React.FC = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // Apenas no lado do cliente
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null; // Evita renderizar no lado do servidor
+  }
+  
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Router>
@@ -57,4 +70,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Home;
