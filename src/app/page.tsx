@@ -36,7 +36,6 @@ const App: React.FC = () => {
             <li><Link to="/type_installation">Tipo Instalação</Link></li>
             <li><Link to="/equipament">Equipamento</Link></li>
             <li><Link to="/project">Projeto</Link></li>
-            <li><Link to="/project_detail/16">Projeto Detalhe 11</Link></li>
           </ul>
         </nav>
         <Routes>

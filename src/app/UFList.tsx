@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
+interface ApiResponse<T> {
+  data: T[];
+}
+
 interface UFList {
   id: number;
   uf: string;
@@ -15,7 +20,7 @@ const UFList: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<UFList[]>('http://localhost:8000/api/uf');
+        const response = await axios.get<ApiResponse<UFList>>('http://localhost:8000/api/uf');
         setData(response.data.data);
       } catch (err) {
         setError('Erro ao carregar os dados');

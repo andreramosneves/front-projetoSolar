@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+
+interface ApiResponse<T> {
+  data: T[];
+}
+
 interface ProjectList {
   id: number;
   name: string;
@@ -21,7 +26,7 @@ const ProjectList: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<ProjectList[]>('http://localhost:8000/api/project');
+        const response = await axios.get<ApiResponse<ProjectList>>('http://localhost:8000/api/project');
         setData(response.data.data.data);
       } catch (err) {
         setError('Erro ao carregar os dados');

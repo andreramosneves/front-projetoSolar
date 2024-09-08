@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
+interface ApiResponse<T> {
+  data: T[];
+}
+
 interface ClientList {
   id: number;
   name: string;
@@ -16,7 +21,7 @@ const ClientList: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<ClientList[]>('http://localhost:8000/api/client');
+        const response = await axios.get<ApiResponse<ClientList>>('http://localhost:8000/api/client');
         setData(response.data.data);
       } catch (err) {
         setError('Erro ao carregar os dados');

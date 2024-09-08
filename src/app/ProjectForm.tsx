@@ -56,7 +56,11 @@ const ProjectForm = () => {
           }
         }
       } catch (error) {
-        setResposta(`Erro: ${error.message}`);
+          if (error instanceof Error) {
+            setResposta(`Erro: ${error.message}`);
+          } else {
+            setResposta('Ocorreu um erro desconhecido');
+          }
       }
     };
 

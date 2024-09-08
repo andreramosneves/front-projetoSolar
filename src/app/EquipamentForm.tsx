@@ -8,10 +8,10 @@ const EquipamentForm = () => {
     const navigate = useNavigate();  
     // Definir o estado para os inputs do formulário
     const [name, setName] = useState('');
-    const [resposta, setResposta] = useState(null);
+    const [resposta, setResposta] = useState<string | null>(null);
 
     // Função para lidar com a submissão do formulário
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault(); // Evitar reload da página
       
       // Criar o objeto com os dados do formulário
@@ -42,7 +42,11 @@ const EquipamentForm = () => {
           }
         }
       } catch (error) {
-        setResposta(`Erro: ${error.message}`);
+          if (error instanceof Error) {
+            setResposta(`Erro: ${error.message}`);
+          } else {
+            setResposta('Ocorreu um erro desconhecido');
+          }
       }
     };
 

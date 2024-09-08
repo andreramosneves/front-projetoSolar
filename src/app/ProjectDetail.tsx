@@ -3,12 +3,33 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ComboBox from './widget/ComboBox';
 
-interface ProjectDetail {
+
+interface ApiResponse<T> {
+  data: T[];
+}
+
+
+interface pivot{
+  project_id: number;
+  equipament_id: number;
+  quantity: number;
+}
+
+interface Equipament{
+  id: number;
+  name: string;
+  pivot: pivot;
+}
+
+
+interface Project {
   id: number;
   name: string;
   instalacao: string;
   uf: string;
+  equipaments: Equipament[];
 }
+
 
 
 const ProjectDetail: React.FC = () => {
@@ -18,11 +39,11 @@ const ProjectDetail: React.FC = () => {
   const [equipament_id, setEquipament] = useState('');
   const [quantity, setQuantity] = useState('');
 
-  const [data, setData] = useState<TypeInstallationList[]>([]);
+  const [data, setData] = useState<Project[]>([]);
 
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [resposta, setResposta] = useState(null);
+  const [resposta, setResposta] =  useState<string | null>(null);
 
   // Variavel somente para controlar a atualização do meu estado
   const [dadosAtualizados, setDadosAtualizados] = useState(0);
@@ -30,9 +51,9 @@ const ProjectDetail: React.FC = () => {
   useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get<ProjectDetail[]>(`http://localhost:8000/api/project/${id}`);
+          const response = await axios.get<ApiResponse<Project>>(`http://localhost:8000/api/project/${id}`);
           setData(response.data.data.equipaments);
-          console.log('chamou consulta');
+          //setData(response.data.data.equipaments);
         } catch (err) {
           setError('Erro ao carregar os dados');
         } finally {
@@ -43,7 +64,7 @@ const ProjectDetail: React.FC = () => {
   }, [dadosAtualizados]); 
 
 const handleSubmitPut = async (id: number, id2:number) =>  {
-      event.preventDefault(); // Evitar reload da página
+      //event.preventDefault(); // Evitar reload da página
       
       // Criar o objeto com os dados do formulário
       const dadosFormulario = {
@@ -77,12 +98,16 @@ const handleSubmitPut = async (id: number, id2:number) =>  {
           }
         }
       } catch (error) {
-        setResposta(`Erro: ${error.message}`);
+          if (error instanceof Error) {
+            setResposta(`Erro: ${error.message}`);
+          } else {
+            setResposta('Ocorreu um erro desconhecido');
+          }
       }
     };
 
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault(); // Evitar reload da página
       
       // Criar o objeto com os dados do formulário
@@ -117,7 +142,11 @@ const handleSubmitPut = async (id: number, id2:number) =>  {
           }
         }
       } catch (error) {
-        setResposta(`Erro: ${error.message}`);
+          if (error instanceof Error) {
+            setResposta(`Erro: ${error.message}`);
+          } else {
+            setResposta('Ocorreu um erro desconhecido');
+          }
       }
     };
 

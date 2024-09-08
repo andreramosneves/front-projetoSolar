@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
+
+interface ApiResponse<T> {
+  data: T[];
+}
+
 interface TypeInstallationList {
   id: number;
   name: string;
@@ -15,7 +21,7 @@ const TypeInstallationList: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<TypeInstallationList[]>('http://localhost:8000/api/type_installation');
+        const response = await axios.get<ApiResponse<TypeInstallationList>>('http://localhost:8000/api/type_installation');
         setData(response.data.data);
       } catch (err) {
         setError('Erro ao carregar os dados');

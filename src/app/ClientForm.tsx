@@ -12,10 +12,10 @@ const ClientePost = () => {
     const [phone, setPhone] = useState('');
     const [document, setDocument] = useState('');
     const [type_document, setTypeDocument] = useState('');
-    const [resposta, setResposta] = useState(null);
+    const [resposta, setResposta] = useState<string | null>(null);
 
     // Função para lidar com a submissão do formulário
-    const handleSubmit = async (event) => {
+    const handleSubmit = async  (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault(); // Evitar reload da página
       
       // Criar o objeto com os dados do formulário
@@ -50,8 +50,12 @@ const ClientePost = () => {
           }
         }
       } catch (error) {
-        setResposta(`Erro: ${error.message}`);
-      }
+          if (error instanceof Error) {
+            setResposta(`Erro: ${error.message}`);
+          } else {
+            setResposta('Ocorreu um erro desconhecido');
+          }
+        }
     };
 
     const handleRedirect = () => {
