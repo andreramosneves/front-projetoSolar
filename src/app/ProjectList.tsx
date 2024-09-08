@@ -17,9 +17,9 @@ interface Pagination {
 
 interface ProjectList {
   id: number;
-  name: string;
-  instalacao: string;
-  uf: string;
+  client_name: string;
+  type_installation_name: string;
+  uf_name: string;
 }
 
 
@@ -35,8 +35,8 @@ const ProjectList: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<ApiResponse<Pagination>>('http://localhost:8000/api/project');
+        // @ts-ignore
         setData(response.data.data.data);
-        //setData(response.data.data.data);
       } catch (err) {
         setError('Erro ao carregar os dados');
       } finally {
