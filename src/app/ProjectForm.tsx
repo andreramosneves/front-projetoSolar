@@ -4,6 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 import ComboBox from './widget/ComboBox';
 
+interface Equipamento{
+  id: string;
+  quantity: string;
+}
+
+
 const ProjectForm = () => {
     //Para Navegação
     const navigate = useNavigate();  
@@ -12,13 +18,13 @@ const ProjectForm = () => {
     const [type_installation_id, setTypeInstallationId] = useState('');
     const [uf_id, setUfId] = useState('');
     const [equipament_id, setEquipament] = useState('');
-    const [equipament, setEquipaments] = useState([]);
+    const [equipament, setEquipaments] = useState<Equipamento[]>([]);
     const [newItem, setNewItem] = useState(''); // Estado para armazenar o valor do novo item
     const [quantity, setQuantity] = useState('');
-    const [resposta, setResposta] = useState(null);
+    const [resposta, setResposta] =  useState<string | null>(null);
 
     // Função para lidar com a submissão do formulário
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault(); // Evitar reload da página
       
       // Criar o objeto com os dados do formulário
@@ -69,11 +75,9 @@ const ProjectForm = () => {
       navigate('/project_list');
     };
 
-    const handleAddItem = (event) => {
-      // Redireciona para a página "Projetos"
-      event.preventDefault();     
+    const  handleAddItem = () => {
       if (quantity.trim() !== '' && equipament_id.trim() != '') {
-        const my_equipament = {
+        const my_equipament: Equipamento  = {
           id:equipament_id,
           quantity:quantity
         };
@@ -82,15 +86,14 @@ const ProjectForm = () => {
         setQuantity('');
         setEquipament('');
       }
-      
-    };
+    }
 
 
 
     /* Combobox que quero carregar*/
-    const apiUrlUf = 'http://localhost:8000/api/uf'; // URL da sua API
-    const apiUrlClient = 'http://localhost:8000/api/client'; // URL da sua API
-    const apiUrlType = 'http://localhost:8000/api/type_installation'; // URL da sua API
+    const apiUrlUf = 'http://localhost:8000/api/uf'; 
+    const apiUrlClient = 'http://localhost:8000/api/client'; 
+    const apiUrlType = 'http://localhost:8000/api/type_installation'; 
     const apiUrlEquipaments = 'http://localhost:8000/api/equipament';
   return (
     <main className="flex flex-col items-center justify-between p-24">
@@ -102,53 +105,37 @@ const ProjectForm = () => {
                id='uf_id' 
                apiUrl={apiUrlUf} 
                labelKey="uf"
-               value={uf_id} 
-               required 
                onOptionChange={setUfId}
                />
-              <ComboBox 
-              />              
             </div>
             <div>
               <label htmlFor="client_id">Cliente:</label>
               <ComboBox
                id='client_id' 
                apiUrl={apiUrlClient} 
-               value={client_id} 
-               required 
                onOptionChange={setClientId}
                />
-              <ComboBox 
-              />              
             </div>
             <div>
               <label htmlFor="uftype_installation_id">Tipo de Instalação:</label>
               <ComboBox
                id='type_installation_id' 
                apiUrl={apiUrlType} 
-               value={type_installation_id} 
-               required 
                onOptionChange={setTypeInstallationId}
                />
-              <ComboBox 
-              />              
             </div>
             <div style={{display: "flex"}} >
               <label htmlFor="equipaments_id">Equipamentos</label>
               <ComboBox
                id='equipaments_id' 
                apiUrl={apiUrlEquipaments} 
-               value={equipament_id} 
-               required 
                onOptionChange={setEquipament}
                />
-              <ComboBox />              
 
               <label htmlFor="quantity">Quantidade:</label>
               <input
                 type="number"
                 id="quantity"
-                default="1"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
               />

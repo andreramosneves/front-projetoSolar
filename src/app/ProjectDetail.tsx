@@ -5,7 +5,7 @@ import ComboBox from './widget/ComboBox';
 
 
 interface ApiResponse<T> {
-  data: T[];
+  data: T;
 }
 
 
@@ -31,7 +31,6 @@ interface Project {
 }
 
 
-
 const ProjectDetail: React.FC = () => {
   const { id } = useParams();   
   const navigate = useNavigate();  
@@ -39,7 +38,7 @@ const ProjectDetail: React.FC = () => {
   const [equipament_id, setEquipament] = useState('');
   const [quantity, setQuantity] = useState('');
 
-  const [data, setData] = useState<Project[]>([]);
+  const [data, setData] = useState<Equipament[]>([]);
 
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -52,8 +51,8 @@ const ProjectDetail: React.FC = () => {
       const fetchData = async () => {
         try {
           const response = await axios.get<ApiResponse<Project>>(`http://localhost:8000/api/project/${id}`);
+          //setData(response.data.data.uf);
           setData(response.data.data.equipaments);
-          //setData(response.data.data.equipaments);
         } catch (err) {
           setError('Erro ao carregar os dados');
         } finally {
@@ -179,18 +178,14 @@ const handleSubmitPut = async (id: number, id2:number) =>  {
                 <ComboBox
                  id='equipament_id' 
                  apiUrl={apiUrlEquipaments} 
-                 value={equipament_id} 
-                 required 
                  onOptionChange={setEquipament}
-                 />
-                <ComboBox />              
+                />
             </div>
             <div>
                 <label htmlFor="quantity">Quantidade:</label>
                 <input
                   type="number"
                   id="quantity"
-                  default="1"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                 />

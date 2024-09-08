@@ -7,6 +7,14 @@ interface ApiResponse<T> {
   data: T[];
 }
 
+interface Pagination {
+  data: ProjectList[];
+  current_page: number;
+  next_page:string;
+  last_page:string;
+}
+
+
 interface ProjectList {
   id: number;
   name: string;
@@ -19,15 +27,16 @@ const ProjectList: React.FC = () => {
   //Para Navegação
   const navigate = useNavigate();  
 
-  const [data, setData] = useState<TypeInstallationList[]>([]);
+  const [data, setData] = useState<ProjectList[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<ApiResponse<ProjectList>>('http://localhost:8000/api/project');
+        const response = await axios.get<ApiResponse<Pagination>>('http://localhost:8000/api/project');
         setData(response.data.data.data);
+        //setData(response.data.data.data);
       } catch (err) {
         setError('Erro ao carregar os dados');
       } finally {
@@ -37,8 +46,9 @@ const ProjectList: React.FC = () => {
     fetchData();
 
   }, []); // O array vazio garante que o efeito só execute uma vez, após o primeiro render
-  const handleDetails = async (id: number) => {
 
+
+  const handleDetails = async (id: number) => {
       navigate('/project_detail/' + id);
 
   }

@@ -8,10 +8,10 @@ const UFPost = () => {
     const navigate = useNavigate();  
     // Definir o estado para os inputs do formulário
     const [uf, setUf] = useState('');
-    const [resposta, setResposta] = useState(null);
+    const [resposta, setResposta] = useState<string | null>(null);
 
     // Função para lidar com a submissão do formulário
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault(); // Evitar reload da página
       
       // Criar o objeto com os dados do formulário
