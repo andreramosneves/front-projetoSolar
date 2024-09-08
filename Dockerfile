@@ -1,23 +1,15 @@
-# Use a imagem oficial do Node.js
-FROM node:20
+FROM node:latest 
 
-# Defina o diretório de trabalho dentro do container
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Copie o package.json e o package-lock.json para o contêiner
-COPY package*.json ./
+# Copiar arquivos e instalar dependências
+COPY package.json .
 
-# Instale as dependências do servidor Node.js
 RUN npm install
 
-# Copie o código da aplicação para o container
+# Copiar o restante do código
 COPY . .
 
-# Instale as dependências e construa a aplicação React
-RUN cd client && npm install && npm run build
+EXPOSE 3000
 
-# Exponha a porta da aplicação
-EXPOSE 5000
-
-# Comando para iniciar o servidor Node.js
-CMD ["node", "server.js"]
+CMD ["npm", "start"]
