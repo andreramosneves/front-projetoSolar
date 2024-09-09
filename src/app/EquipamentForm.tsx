@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const EquipamentForm = () => {
     //Para Navegação
@@ -21,7 +22,7 @@ const EquipamentForm = () => {
 
       try {
         // Fazer uma requisição POST para a API
-        const response = await fetch('http://localhost:8000/api/equipament', {
+        const response = await fetch(apiUrl + '/api/equipament', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

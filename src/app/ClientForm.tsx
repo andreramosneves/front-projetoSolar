@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const ClientePost = () => {
     //Para Navegação
@@ -29,7 +30,7 @@ const ClientePost = () => {
 
       try {
         // Fazer uma requisição POST para a API
-        const response = await fetch('http://localhost:8000/api/client', {
+        const response = await fetch(apiUrl + '/api/client', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

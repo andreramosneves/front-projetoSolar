@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 interface ApiResponse<T> {
   data: T[];
@@ -21,7 +22,7 @@ const ClientList: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<ApiResponse<ClientList>>('http://localhost:8000/api/client');
+        const response = await axios.get<ApiResponse<ClientList>>(apiUrl + '/api/client');
         setData(response.data.data);
       } catch (err) {
         setError('Erro ao carregar os dados');
@@ -36,7 +37,7 @@ const ClientList: React.FC = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8000/api/client/${id}`);
+      await axios.delete(`${apiUrl}/api/client/${id}`);
       // Remove o item excluído da lista
       setData(data.filter(item => item.id !== id));
     } catch (err) {

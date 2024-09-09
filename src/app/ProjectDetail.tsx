@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ComboBox from './widget/ComboBox';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 interface ApiResponse<T> {
   data: T;
@@ -50,7 +51,7 @@ const ProjectDetail: React.FC = () => {
   useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get<ApiResponse<Project>>(`http://localhost:8000/api/project/${id}`);
+          const response = await axios.get<ApiResponse<Project>>(`${apiUrl}/api/project/${id}`);
           //setData(response.data.data.uf);
           setData(response.data.data.equipaments);
         } catch (err) {
@@ -74,7 +75,7 @@ const handleSubmitPut = async (id: number, id2:number) =>  {
 
       try {
         // Fazer uma requisição POST para a API
-        const response = await fetch(`http://localhost:8000/api/project_equipament/${id}/${id2}`, {
+        const response = await fetch(`${apiUrl}/api/project_equipament/${id}/${id2}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -118,7 +119,7 @@ const handleSubmitPut = async (id: number, id2:number) =>  {
 
       try {
         // Fazer uma requisição POST para a API
-        const response = await fetch(`http://localhost:8000/api/project_equipament/${id}/${equipament_id}`, {
+        const response = await fetch(`${apiUrl}/api/project_equipament/${id}/${equipament_id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -155,7 +156,7 @@ const handleSubmitPut = async (id: number, id2:number) =>  {
 
   const handleDelete = async (id: number, id2:number) => {
     try {
-      await axios.delete(`http://localhost:8000/api/project_equipament/${id}/${id2}`);
+      await axios.delete(`${apiUrl}/api/project_equipament/${id}/${id2}`);
       // Remove o item excluído da lista
       setData(data.filter(item => item.pivot.equipament_id !== id2));
     } catch (err) {
@@ -168,7 +169,7 @@ const handleSubmitPut = async (id: number, id2:number) =>  {
   if (loading) return <p>Carregando...</p>;
   if (error) return <p>{error}</p>;
 
-  const apiUrlEquipaments = 'http://localhost:8000/api/equipament';
+  const apiUrlEquipaments = apiUrl + '/api/equipament';
 
   return (
     <div>

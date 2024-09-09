@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 interface ApiResponse<T> {
   data: T[];
@@ -34,7 +35,7 @@ const ProjectList: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<ApiResponse<Pagination>>('http://localhost:8000/api/project');
+        const response = await axios.get<ApiResponse<Pagination>>(apiUrl + '/api/project');
         // @ts-ignore
         setData(response.data.data.data);
       } catch (err) {
@@ -55,7 +56,7 @@ const ProjectList: React.FC = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8000/api/project/${id}`);
+      await axios.delete(`${apiUrl}/api/project/${id}`);
       // Remove o item excluído da lista
       setData(data.filter(item => item.id !== id));
     } catch (err) {

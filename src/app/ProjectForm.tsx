@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import ComboBox from './widget/ComboBox';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 interface Equipamento{
   id: string;
   quantity: string;
@@ -35,11 +37,10 @@ const ProjectForm = () => {
         equipament
       };
 
-      console.log(dadosFormulario);
 
       try {
         // Fazer uma requisição POST para a API
-        const response = await fetch('http://localhost:8000/api/project', {
+        const response = await fetch(apiUrl + '/api/project', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -75,7 +76,11 @@ const ProjectForm = () => {
       navigate('/project_list');
     };
 
-    const  handleAddItem = () => {
+
+
+    const handleAddItem = (event: React.MouseEvent<HTMLButtonElement>): void => {
+      event.preventDefault();
+      
       if (quantity.trim() !== '' && equipament_id.trim() != '') {
         const my_equipament: Equipamento  = {
           id:equipament_id,
@@ -91,10 +96,10 @@ const ProjectForm = () => {
 
 
     /* Combobox que quero carregar*/
-    const apiUrlUf = 'http://localhost:8000/api/uf'; 
-    const apiUrlClient = 'http://localhost:8000/api/client'; 
-    const apiUrlType = 'http://localhost:8000/api/type_installation'; 
-    const apiUrlEquipaments = 'http://localhost:8000/api/equipament';
+    const apiUrlUf = apiUrl + '/api/uf'; 
+    const apiUrlClient = apiUrl + '/api/client'; 
+    const apiUrlType = apiUrl + '/api/type_installation'; 
+    const apiUrlEquipaments = apiUrl + '/api/equipament';
   return (
     <main className="flex flex-col items-center justify-between p-24">
      <h1>Formulário de Projeto</h1>
