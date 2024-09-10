@@ -5,14 +5,15 @@ import axios from 'axios';
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 interface ApiResponse<T> {
-  data: T[];
+  data: T;
 }
 
 interface Pagination {
   data: ProjectList[];
-  current_page: number;
+  current_page: string;
   next_page:string;
   last_page:string;
+  total:string;
 }
 
 
@@ -28,7 +29,7 @@ const ProjectList: React.FC = () => {
   //Para Navegação
   const navigate = useNavigate();  
 
-  const [data, setData] = useState<ProjectList[]>([]);
+  const [data, setData] = useState<Pagination>(({ current_page: "1", next_page: "1", last_page: "1", total : "0" ,data: [] }));
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -36,8 +37,9 @@ const ProjectList: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<ApiResponse<Pagination>>(apiUrl + '/api/project');
-        // @ts-ignore
-        setData(response.data.data.data);
+        
+        setData(response.data.data);
+        //setData(response.data.data.data);
       } catch (err) {
         setError('Erro ao carregar os dados');
       } finally {
@@ -53,16 +55,20 @@ const ProjectList: React.FC = () => {
       navigate('/project_detail/' + id);
 
   }
-
+  
   const handleDelete = async (id: number) => {
     try {
       await axios.delete(`${apiUrl}/api/project/${id}`);
-      // Remove o item excluído da lista
-      setData(data.filter(item => item.id !== id));
+      setData(data => ({
+        ...data, // Gera uma cópia do meu dado antigo
+        data: data.data.filter(item => item.id !== id), 
+      }));
+
     } catch (err) {
       setError('Erro ao excluir o item');
     }
   };
+  
 
   if (loading) return <p>Carregando...</p>;
   if (error) return <p>{error}</p>;
@@ -80,7 +86,7 @@ const ProjectList: React.FC = () => {
         </tr>
       </thead>
       <tbody>
-        {data.map((item) => (
+        {data?.data?.map((item) => (
           <tr key={item.id}>
             <td>{item.id}</td>
             <td>{item.client_name}</td>
