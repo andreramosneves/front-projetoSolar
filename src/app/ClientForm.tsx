@@ -109,12 +109,11 @@ const ClientePost = () => {
             </div>
             <div>
               <label htmlFor="type_document">Type Document:</label>
-              <input
-                id="type_document"
-                value={type_document}
-                onChange={(e) => setTypeDocument(e.target.value)}
-                required
-              />
+              <select id="type_document" onChange={(e) => setTypeDocument(e.target.value)}>
+                <option value="">Selecione uma opção</option>
+                  <option key="cpf" value="cpf">CPF</option>
+                  <option key="cnpj" value="cnpj">CNPJ</option>
+              </select>
             </div>
 
             <button type="submit">Enviar</button>
