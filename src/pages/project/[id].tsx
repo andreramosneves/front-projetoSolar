@@ -181,24 +181,25 @@ const handleSubmitPut = async (id: number, id2:number) =>  {
       <HomePage />
       <section className="flex flex-col items-center justify-between">
             <form onSubmit={handleSubmit}>
-              <div>
-                  <label htmlFor="equipament_id">Equipamentos</label>
+              <div className="form_flex">
+                <label className="label_inline" htmlFor="equipament_id">Equipamentos</label>
                   <ComboBox
                    id='equipament_id' 
                    apiUrl={apiUrlEquipaments} 
                    onOptionChange={setEquipament}
                   />
               </div>
-              <div>
-                  <label htmlFor="quantity">Quantidade:</label>
+              <div className="form_flex">
+                <label className="label_inline" htmlFor="quantity">Quantidade:</label>
                   <input
+                    className="form-control form_flex input_number_i"                  
                     type="number"
                     id="quantity"
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
                   />
               </div>
-              <button type="submit">Adicionar Item</button>
+              <button className="btn btn-success btn-sucess-green-light" type="submit"><i className="bi bi-add"></i></button>
           </form>
           {resposta && <p>{resposta}</p>}
 
@@ -210,6 +211,7 @@ const handleSubmitPut = async (id: number, id2:number) =>  {
                 <th>ID</th>
                 <th>Instalação</th>
                 <th>Quantidade</th>
+                <th>Alterar?</th>
                 <th>Excluir?</th>
               </tr>
             </thead>
@@ -218,9 +220,10 @@ const handleSubmitPut = async (id: number, id2:number) =>  {
                 <tr key={item.pivot.equipament_id}>
                   <td>{item.pivot.equipament_id}</td>
                   <td>{item.name}</td>
-                  <td>{item.pivot.quantity}<button onClick={() => handleSubmitPut(item.pivot.project_id,item.pivot.equipament_id)}>Alterar Qtd</button>
-                  
+                  <td>{item.pivot.quantity}                 
                   </td>
+                  <td><button onClick={() => handleSubmitPut(item.pivot.project_id,item.pivot.equipament_id)}>
+                    <i className="bi bi-floppy2-fill"></i></button></td>
                   <td><button className="btn btn-danger btnMenu"  onClick={() => handleDelete(item.pivot.project_id,item.pivot.equipament_id)}>
                   <i className="bi bi-trash"></i>  
                   </button></td>
