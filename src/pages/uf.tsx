@@ -57,9 +57,10 @@ const UFPost = () => {
       <section className="form flex flex-col items-center justify-between">
        <h1>Formulário de UF</h1>
             <form onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="uf">UF:</label>
+              <div className="form_flex">
+                <label className="label_inline" htmlFor="uf">UF:</label>
                 <input
+                  className="form-control"
                   type="text"
                   id="uf"
                   value={uf}
@@ -68,9 +69,9 @@ const UFPost = () => {
                 />
               </div>
 
-              <button type="submit">Enviar</button>
+              <button className="btn btn-primary btnMenu" type="submit">Enviar</button>
             </form>
-            <Link href="/uf/list">Listagem</Link>
+            <Link href="/uf/list" className="ls_l">Listagem</Link>
             {resposta && <p>{resposta}</p>}
       </section>
     </section>

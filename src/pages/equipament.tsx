@@ -56,9 +56,10 @@ const EquipamentForm = () => {
       <section className="form flex flex-col items-center justify-between">
        <h1>Formulário de Equipamento</h1>
             <form onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="name">Nome:</label>
+              <div className="form_flex">
+                <label className="label_inline" htmlFor="name">Nome:</label>
                 <input
+                  className="form-control"                
                   type="text"
                   id="name"
                   value={name}
@@ -66,7 +67,7 @@ const EquipamentForm = () => {
                   required
                 />
               </div>
-              <button type="submit">Enviar</button>
+              <button  className="btn btn-primary btnMenu" type="submit">Enviar</button>
             </form>
              
             {resposta && <p>{resposta}</p>}

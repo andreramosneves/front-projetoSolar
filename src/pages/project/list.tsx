@@ -91,7 +91,7 @@ const ProjectList: React.FC = () => {
                 <td>{item.client_name}</td>
                 <td>{item.type_installation_name}</td>
                 <td>{item.uf_name}</td>
-                <td><button onClick={() => handleDelete(item.id)}>Excluir</button></td>
+                <td><button className="btn btn-danger btnMenu" onClick={() => handleDelete(item.id)}>Excluir</button></td>
                 <td><Link href={"/project/" + item.id}>Detalhes</Link></td>
               </tr>
             ))}

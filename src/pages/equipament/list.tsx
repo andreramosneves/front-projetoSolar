@@ -66,7 +66,9 @@ const EquipamentList: React.FC = () => {
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
-                <td><button onClick={() => handleDelete(item.id)}>Excluir</button></td>
+                <td><button className="btn btn-danger btnMenu" onClick={() => handleDelete(item.id)}>
+                <i className="bi bi-trash"></i>  
+                </button></td>
               </tr>
             ))}
           </tbody>

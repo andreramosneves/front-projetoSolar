@@ -59,8 +59,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({ apiUrl, labelKey = 'name', id, onOp
   }
 
   return (
-    <div>
-      <select id={id} onChange={(e) => onOptionChange(e.target.value)}>
+      <select className='form-control select-white' id={id} onChange={(e) => onOptionChange(e.target.value)}>
         <option value="">Selecione uma opção</option>
         {options.map((option) => (
           <option key={option.id} value={option.id}>
@@ -68,7 +67,6 @@ const ComboBox: React.FC<ComboBoxProps> = ({ apiUrl, labelKey = 'name', id, onOp
           </option>
         ))}
       </select>
-    </div>
   );
 };
 

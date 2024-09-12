@@ -96,11 +96,12 @@ const ProjectForm = () => {
     const apiUrlEquipaments = apiUrl + '/api/equipament';
   return (
     <section>
+      <HomePage/>
       <section className="flex flex-col items-center justify-between p-24">
         <h1>Formulário de Projeto</h1>
           <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="uf_id">Uf:</label>
+            <div className="form_flex">
+              <label className="label_inline" htmlFor="uf_id">Uf:</label>
               <ComboBox
                id='uf_id' 
                apiUrl={apiUrlUf} 
@@ -108,38 +109,39 @@ const ProjectForm = () => {
                onOptionChange={setUfId}
                />
             </div>
-            <div>
-              <label htmlFor="client_id">Cliente:</label>
+            <div className="form_flex">
+              <label className="label_inline" htmlFor="client_id">Cliente:</label>
               <ComboBox
                id='client_id' 
                apiUrl={apiUrlClient} 
                onOptionChange={setClientId}
                />
             </div>
-            <div>
-              <label htmlFor="uftype_installation_id">Tipo de Instalação:</label>
+            <div className="form_flex">
+              <label className="label_inline" htmlFor="type_installation_id">Tipo de Instalação:</label>
               <ComboBox
                id='type_installation_id' 
                apiUrl={apiUrlType} 
                onOptionChange={setTypeInstallationId}
                />
             </div>
-            <div style={{display: "flex"}} >
-              <label htmlFor="equipaments_id">Equipamentos</label>
+            <div className="form_flex">
+              <label className="label_inline" htmlFor="equipaments_id">Equipamentos:</label>
               <ComboBox
                id='equipaments_id' 
                apiUrl={apiUrlEquipaments} 
                onOptionChange={setEquipament}
                />
 
-              <label htmlFor="quantity">Quantidade:</label>
+              <label className="label_inline-nomin" htmlFor="quantity">Quantidade:</label>
               <input
+                className="form-control form_flex input_number_i"
                 type="number"
                 id="quantity"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
               />
-              <button onClick={handleAddItem}>Adicionar Equipamento</button>
+              <button className="btn btn-success" onClick={handleAddItem}><i className="bi bi-add"></i></button>
             </div>
             <div>
               <p id="equip_id">Equipamentos Adicionados:</p>
@@ -151,7 +153,7 @@ const ProjectForm = () => {
               </ul>
             </div>
 
-            <button type="submit">Criar Projeto</button>
+            <button  className="btn btn-primary btnMenu" type="submit">Criar Projeto</button>
           </form>
            
           {resposta && <p>{resposta}</p>}

@@ -52,7 +52,9 @@ const UFList: React.FC = () => {
   if (error) return <p>{error}</p>;
 
   return (
+
     <section>
+        
       <HomePage />
       <section className="flex flex-col items-center justify-between">
         <table>
@@ -68,7 +70,9 @@ const UFList: React.FC = () => {
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.uf}</td>
-                <td><button onClick={() => handleDelete(item.id)}>Excluir</button></td>
+                <td><button className="btn btn-danger btnMenu" onClick={() => handleDelete(item.id)}>
+                  <i className="bi bi-trash"></i>  
+                </button></td>
               </tr>
             ))}
           </tbody>

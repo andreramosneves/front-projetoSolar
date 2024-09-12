@@ -64,9 +64,10 @@ const ClientePost = () => {
       <section className="form flex flex-col items-center justify-between">
        <h1>Formulário de Cliente</h1>
             <form onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="name">Nome:</label>
+              <div className="form_flex">
+                <label className="label_inline" htmlFor="name">Nome:</label>
                 <input
+                  className="form-control" 
                   type="text"
                   id="name"
                   value={name}
@@ -74,9 +75,10 @@ const ClientePost = () => {
                   required
                 />
               </div>
-              <div>
-                <label htmlFor="email">Email:</label>
+              <div className="form_flex">
+                <label className="label_inline"  htmlFor="email">Email:</label>
                 <input
+                  className="form-control" 
                   type="email"
                   id="email"
                   value={email}
@@ -84,34 +86,36 @@ const ClientePost = () => {
                   required
                 />
               </div>
-              <div>
-                <label htmlFor="phone">Phone:</label>
+              <div className="form_flex">
+                <label  className="label_inline"  htmlFor="phone">Telefone:</label>
                 <input
+                  className="form-control" 
                   id="phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   required
                 />
               </div>
-              <div>
-                <label htmlFor="document">Document:</label>
+              <div className="form_flex">
+                <label className="label_inline" htmlFor="document">Documento:</label>
                 <input
+                  className="form-control" 
                   id="document"
                   value={document}
                   onChange={(e) => setDocument(e.target.value)}
                   required
                 />
               </div>
-              <div>
-                <label htmlFor="type_document">Type Document:</label>
-                <select id="type_document" onChange={(e) => setTypeDocument(e.target.value)}>
+              <div className="form_flex">
+                <label className="label_inline" htmlFor="type_document">Tipo Documento:</label>
+                <select className="form-control select-white" id="type_document" onChange={(e) => setTypeDocument(e.target.value)}>
                   <option value="">Selecione uma opção</option>
                     <option key="cpf" value="cpf">CPF</option>
                     <option key="cnpj" value="cnpj">CNPJ</option>
                 </select>
               </div>
 
-              <button type="submit">Enviar</button>
+              <button  className="btn btn-primary btnMenu"  type="submit">Enviar</button>
             </form>
              
             {resposta && <p>{resposta}</p>}

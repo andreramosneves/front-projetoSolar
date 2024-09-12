@@ -221,7 +221,9 @@ const handleSubmitPut = async (id: number, id2:number) =>  {
                   <td>{item.pivot.quantity}<button onClick={() => handleSubmitPut(item.pivot.project_id,item.pivot.equipament_id)}>Alterar Qtd</button>
                   
                   </td>
-                  <td><button onClick={() => handleDelete(item.pivot.project_id,item.pivot.equipament_id)}>Excluir</button></td>
+                  <td><button className="btn btn-danger btnMenu"  onClick={() => handleDelete(item.pivot.project_id,item.pivot.equipament_id)}>
+                  <i className="bi bi-trash"></i>  
+                  </button></td>
                 </tr>
               ))}
             </tbody>
