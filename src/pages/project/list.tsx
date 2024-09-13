@@ -13,10 +13,9 @@ interface ApiResponse<T> {
 
 interface Pagination {
   data: ProjectList[];
-  current_page: string;
-  next_page:string;
-  last_page:string;
-  total:string;
+  current_page: number;
+  last_page:number;
+  total:number;
 }
 
 
@@ -29,27 +28,43 @@ interface ProjectList {
 
 
 const ProjectList: React.FC = () => {
-  const [data, setData] = useState<Pagination>(({ current_page: "1", next_page: "1", last_page: "1", total : "0" ,data: [] }));
+  const [data, setData] = useState<Pagination>(({ current_page: 1, last_page: 1, total : 0 ,data: [] }));
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState<integer>(1);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<ApiResponse<Pagination>>(apiUrl + '/api/project');
-        
+        const response = await axios.get<ApiResponse<Pagination>>(apiUrl + '/api/project/?page=' + page);
         setData(response.data.data);
       } catch (err) {
-        setError('Erro ao carregar os dados');
+        setError('Erro ao carregar os dados' + err);
       } finally {
         setLoading(false);
       }
     };
     fetchData();
 
-  }, []); // O array vazio garante que o efeito só execute uma vez, após o primeiro render
+  }, [page]); // O array vazio garante que o efeito só execute uma vez, após o primeiro render
 
-  
+  const handlePage = (pg: number) => {
+      if(pg >= 1 && data.last_page >= pg){
+       setPage(pg);
+      }
+  }
+
+  /*
+  const enableButtonsPagination = () => {
+      const sel = document.getElementById("pg_anterior");
+        console.log("passou aqui");
+      if(sel){
+        console.log("passou aqui");
+        sel.classList.add('disabled');
+      }
+  }
+*/
+
   const handleDelete = async (id: number) => {
     try {
       await axios.delete(`${apiUrl}/api/project/${id}`);
@@ -98,6 +113,26 @@ const ProjectList: React.FC = () => {
             ))}
           </tbody>
         </table>
+        <nav aria-label="...">
+          Página: {page}
+          <ul className="pagination">
+            <li className={((page > 1) ? 'page-item' : 'page-item disabled')} >
+              <a className="page-link" onClick={() => handlePage(page-1)}>Anterior</a>
+            </li>
+            <li className={'page-item'}>
+            <a className="page-link" onClick={() => handlePage(1)} >1</a></li>
+            <li className={((page+1 >= 1 && data.last_page >= page+1) ? 'page-item' : 'page-item disabled')} aria-current="page">
+              <a className="page-link" onClick={() => handlePage(page+1)} >{page+1}</a>
+            </li>
+            <li className="page-item disabled">
+              <span className="page-link">...</span>
+            </li>
+            <li className={((data.last_page >= page && data.last_page != 1) ? 'page-item' : 'page-item disabled')}>
+            <a className="page-link"  onClick={() => handlePage(data.last_page)}>Final</a></li>
+          </ul>
+        </nav>
+
+
       </section>
     </section>
   );
