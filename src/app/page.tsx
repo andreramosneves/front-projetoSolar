@@ -1,3 +1,39 @@
+'use client'; 
+
+import React, { useEffect } from 'react';
+
+import Head from "next/head";
+import Menu from './widget/Menu';
+import './globals.css';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/js/bootstrap.min.js';
+//import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
+const HomePage = () => {  
+    useEffect(() => {
+      // Somente executa no cliente
+      //import('bootstrap/dist/js/bootstrap.bundle.min.js');
+    }, []);
+
+  return (
+    <>
+      <Head>
+        <title>Projeto Solar</title>
+        <meta name="description" content="Projeto Solar feito por Andre Ramos" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+    <main>
+         <Menu />
+    </main>
+    </>
+  );
+};
+
+export default HomePage;
+/*
 'use client'; // Essa diretiva transforma o componente em um Client Component
 import { useEffect, useState } from 'react';
 
@@ -72,41 +108,5 @@ const Home: React.FC = () => {
 
 export default Home;
 
-/*
-Comentário para usar no formato do NEXT
-'use client'; 
 
-import React, { useEffect } from 'react';
-
-import Head from "next/head";
-import Menu from './widget/Menu';
-import './globals.css';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-//import 'bootstrap/dist/js/bootstrap.min.js';
-//import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
-const HomePage = () => {  
-    useEffect(() => {
-      // Somente executa no cliente
-      //import('bootstrap/dist/js/bootstrap.bundle.min.js');
-    }, []);
-
-  return (
-    <>
-      <Head>
-        <title>Projeto Solar</title>
-        <meta name="description" content="Projeto Solar feito por Andre Ramos" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-    <main>
-         <Menu />
-    </main>
-    </>
-  );
-};
-
-export default HomePage;
 */
