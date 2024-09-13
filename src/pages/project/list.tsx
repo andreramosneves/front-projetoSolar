@@ -31,7 +31,7 @@ const ProjectList: React.FC = () => {
   const [data, setData] = useState<Pagination>(({ current_page: 1, last_page: 1, total : 0 ,data: [] }));
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [page, setPage] = useState<integer>(1);
+  const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
     const fetchData = async () => {
