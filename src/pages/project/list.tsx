@@ -39,7 +39,6 @@ const ProjectList: React.FC = () => {
         const response = await axios.get<ApiResponse<Pagination>>(apiUrl + '/api/project');
         
         setData(response.data.data);
-        //setData(response.data.data.data);
       } catch (err) {
         setError('Erro ao carregar os dados');
       } finally {
@@ -73,15 +72,15 @@ const ProjectList: React.FC = () => {
       <HomePage />
       <section className="flex flex-col items-center justify-between">
 
-        <table>
+      <table className="table table-50">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Instalação</th>
-              <th>UF</th>
-              <th>Excluir?</th>
-              <th>Itens</th>
+              <th scope="col">ID</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Instalação</th>
+              <th scope="col">UF</th>
+              <th scope="col">Excluir?</th>
+              <th scope="col">Itens</th>
             </tr>
           </thead>
           <tbody>
@@ -94,7 +93,7 @@ const ProjectList: React.FC = () => {
                 <td><button className="btn btn-danger btnMenu" onClick={() => handleDelete(item.id)}>
                   <i className="bi bi-trash"></i>  
                 </button></td>
-                <td><Link className="btn btn-warning" href={"/project/" + item.id}><i className="bi-info-square-fill"></i> </Link></td>
+                <td><Link className="btn btn-warning btnMenu" href={"/project/" + item.id}><i className="bi-info-square-fill"></i> </Link></td>
               </tr>
             ))}
           </tbody>

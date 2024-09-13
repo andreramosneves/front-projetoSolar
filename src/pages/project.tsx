@@ -11,6 +11,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 interface Equipamento{
   id: string;
   quantity: string;
+  name?:string;
 }
 
 
@@ -36,7 +37,6 @@ const ProjectForm = () => {
         uf_id,
         equipament
       };
-
 
       try {
         // Fazer uma requisição POST para a API
@@ -74,19 +74,25 @@ const ProjectForm = () => {
 
     const handleAddItem = (event: React.MouseEvent<HTMLButtonElement>): void => {
       event.preventDefault();
-      
-      if (quantity.trim() !== '' && equipament_id.trim() != '') {
+      const itemExists = equipament.some(item => item.id === equipament_id);
+      if (!itemExists) {
         const my_equipament: Equipamento  = {
           id:equipament_id,
-          quantity:quantity
+          quantity:quantity,
+          name:getTextEquipament()
         };
-        //setEquipaments([...equipaments, my_equipament]); // Adiciona o novo item à lista de itens
-        equipament.push(my_equipament);
-        setQuantity('');
-        setEquipament('');
+
+        setEquipaments([...equipament, my_equipament]); // Adiciona o novo item à lista de itens
       }
     }
 
+    const getTextEquipament = (): string => {
+      const sel = document.getElementById("equipaments_id");
+      if(sel instanceof HTMLSelectElement){
+        return sel.options[sel.selectedIndex].text;
+      }
+      return "";
+    }
 
 
     /* Combobox que quero carregar*/
@@ -148,7 +154,7 @@ const ProjectForm = () => {
               {/* Exibe os itens adicionados em memória */}
               <ul>
                 {equipament.map((item) => (
-                  <li>Id Adicionado:{item.id}</li>
+                  <li key={item.id}>&gt;Item: {item.id} - {item.name}</li>
                 ))}
               </ul>
             </div>

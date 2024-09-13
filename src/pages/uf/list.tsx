@@ -57,12 +57,12 @@ const UFList: React.FC = () => {
         
       <HomePage />
       <section className="flex flex-col items-center justify-between">
-        <table>
+        <table className="table table-20">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>UF</th>
-              <th>Excluir?</th>
+              <th scope="col">ID</th>
+              <th scope="col">UF</th>
+              <th scope="col">Excluir?</th>
             </tr>
           </thead>
           <tbody>

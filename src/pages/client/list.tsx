@@ -54,13 +54,13 @@ const ClientList: React.FC = () => {
     <section>
       <HomePage />
       <section className="flex flex-col items-center justify-between">
-        <table>
+      <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Document</th>
-              <th>Excluir?</th>
+              <th scope="col">ID</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Document</th>
+              <th scope="col">Excluir?</th>
             </tr>
           </thead>
           <tbody>
